@@ -10,13 +10,20 @@ class App extends Component {
         super();
 
         this.state = {
-            category: "lights"
+            category: "lights",
+            searchedData: null
         };
     }
 
     setCategoryToFilter(newCategory) {
         this.setState({
             category: newCategory
+        });
+    }
+
+    setSearched() {
+        this.setState({
+            searchedData: document.querySelector("#fixed-header-drawer-exp").value
         });
     }
 
@@ -34,7 +41,7 @@ class App extends Component {
                     </label>
                     <div className="mdl-textfield__expandable-holder">
                       <input className="mdl-textfield__input" type="text" name="sample"
-                             id="fixed-header-drawer-exp" />
+                             id="fixed-header-drawer-exp" onChange={()=>{this.setSearched();}} />
                     </div>
                   </div>
                 </div>
@@ -51,7 +58,7 @@ class App extends Component {
               </div>
               <main className="mdl-layout__content">
                 <div className="page-content">
-                    <TableItems category={this.state.category} />
+                    <TableItems category={this.state.category} searchedData={this.state.searchedData} />
                 </div>
               </main>
             </div>

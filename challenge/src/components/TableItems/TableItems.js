@@ -64,10 +64,6 @@ export default class TableItems extends React.Component {
                 <ul className="demo-list-three mdl-list">
                     {this.getItems()}
                 </ul>
-
-                <br />
-
-
             </div>
         );
     }
