@@ -22,4 +22,10 @@ router.get("/items", function(req, res){
     });
 });
 
+router.post("/items", function(req, res){
+    console.log("ADD COMMENT");
+    console.log(req.body);
+    res.send({msg: "Testing PUT comment"});
+});
+
 module.exports = router;

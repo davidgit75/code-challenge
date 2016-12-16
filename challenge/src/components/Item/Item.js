@@ -7,7 +7,8 @@ export default class Item extends React.Component {
         super();
 
         this.state = {
-            classActive: "unactive"
+            classActive: "unactive",
+            comment: ""
         };
     }
 
@@ -34,6 +35,49 @@ export default class Item extends React.Component {
         document.querySelector("#modalComments").style.display = "none";
     }
 
+    setComment() {
+        this.setState({
+            comment: document.querySelector("#newComment").value
+        });
+    }
+
+    sendNewData() {
+        let data = new FormData();
+        data.append("comment", "MI COMENTARIO");
+
+        let config = {
+            method: "POST",
+            headers: {
+              "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: data
+        };
+
+        fetch("http://localhost:3010/apichallenge/items", config)
+        .then((response)=>{
+            console.log("response");
+            console.log(response);
+            if(response.ok){
+                return response.json();
+            }else{
+                return {message: "Error conectando con el api"};
+            }
+        })
+        .then((itemUpdated)=>{
+            console.log("itemUpdated");
+            console.log(itemUpdated);
+            document.querySelector("#newComment").value = "";
+
+            this.setState({
+                comment: ""
+            });
+        })
+        .catch((error)=>{
+            console.log("Error");
+            console.log(error);
+        });
+    }
+
 
     render() {
         return (
@@ -44,23 +88,28 @@ export default class Item extends React.Component {
                     <span>{this.props.title}</span>
 
                     <span className="mdl-list__item-text-body">
-                      {this.props.category}
+                      {this.props.category} <br />
+                      <p>{this.props.comment}</p>
                     </span>
                   </span>
-                  <a className="mdl-list__item-secondary-action" onClick={()=>{this.changeStateSwitch();}}><i className={"material-icons " + this.state.classActive}>star</i></a>
+                  <a className="mdl-list__item-secondary-action" onClick={()=>{this.changeStateSwitch();}}><i className={"material-icons " + this.state.classActive}>mode_edit</i></a>
                 </li>
 
                 <div id="modalComments" className="modal">
 
                   <div className="modal-content">
-
-                    <p>Some text in the Modal..</p>
+                    <form action="#">
+                      <div className="mdl-textfield mdl-js-textfield">
+                        <textarea className="mdl-textfield__input" type="text" rows="3" id="newComment" onChange={()=>{this.setComment();}} ></textarea>
+                        <label className="mdl-textfield__label" htmlFor="newComment">Nuevo comentario</label>
+                      </div>
+                    </form>
 
                     <button id="btnModalClose" className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btnActionModal" onClick={()=>{this.closeModal();}}>
                       Cerrar
                     </button>
 
-                    <button id="btnModalSend" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btnActionModal" onClick={()=>{this.closeModal();}}>
+                    <button id="btnModalSend" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btnActionModal" onClick={()=>{this.sendNewData();}}>
                       Aceptar
                     </button>
                   </div>

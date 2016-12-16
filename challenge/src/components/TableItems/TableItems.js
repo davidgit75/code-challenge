@@ -22,7 +22,7 @@ export default class TableItems extends React.Component {
         let idy = 0;
         for(let k in itemsToShow){
             if(itemsToShow[k].name.text !== undefined){
-                items.push(<Item title={itemsToShow[k].name.text} category={currentCategory.name.text} key={idy+"-"+currentCategory._id} />);
+                items.push(<Item title={itemsToShow[k].name.text} category={currentCategory.name.text} comment={itemsToShow[k].comment} key={idy+"-"+currentCategory._id} />);
                 idy++;
             }
         }
