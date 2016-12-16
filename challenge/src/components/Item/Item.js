@@ -12,7 +12,7 @@ export default class Item extends React.Component {
     }
 
     changeStateSwitch() {
-        let newClass = "";
+        /*let newClass = "";
         if(this.state.classActive === "active"){
             newClass = "unactive";
         }else if(this.state.classActive === "unactive"){
@@ -21,9 +21,19 @@ export default class Item extends React.Component {
 
         this.setState({
             classActive: newClass
-        });
-        console.log(this.state.classActive);
+        });*/
+
+        this.openModal();
     }
+
+    openModal() {
+        document.querySelector("#modalComments").style.display = "block";
+    }
+
+    closeModal() {
+        document.querySelector("#modalComments").style.display = "none";
+    }
+
 
     render() {
         return (
@@ -39,6 +49,24 @@ export default class Item extends React.Component {
                   </span>
                   <a className="mdl-list__item-secondary-action" onClick={()=>{this.changeStateSwitch();}}><i className={"material-icons " + this.state.classActive}>star</i></a>
                 </li>
+
+                <div id="modalComments" className="modal">
+
+                  <div className="modal-content">
+
+                    <p>Some text in the Modal..</p>
+
+                    <button id="btnModalClose" className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btnActionModal" onClick={()=>{this.closeModal();}}>
+                      Cerrar
+                    </button>
+
+                    <button id="btnModalSend" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btnActionModal" onClick={()=>{this.closeModal();}}>
+                      Aceptar
+                    </button>
+                  </div>
+
+                </div>
+
             </div>
         );
     }
