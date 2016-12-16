@@ -1,9 +1,28 @@
 import React from 'react';
+import "./Item.css";
 
 export default class Item extends React.Component {
 
+    constructor() {
+        super();
+
+        this.state = {
+            classActive: "unactive"
+        };
+    }
+
     changeStateSwitch() {
-        console.log("Swith changed");
+        let newClass = "";
+        if(this.state.classActive === "active"){
+            newClass = "unactive";
+        }else if(this.state.classActive === "unactive"){
+            newClass = "active";
+        }
+
+        this.setState({
+            classActive: newClass
+        });
+        console.log(this.state.classActive);
     }
 
     render() {
@@ -18,11 +37,7 @@ export default class Item extends React.Component {
                       {this.props.category}
                     </span>
                   </span>
-                  <span className="mdl-list__item-secondary-action">
-                    <label className="mdl-switch mdl-js-switch mdl-js-ripple-effect" htmlFor={`list-switch-${this.props.id}`}>
-                      <input type="checkbox" id="list-switch-1" className="mdl-switch__input" onChange={()=>{this.changeStateSwitch();}} />
-                    </label>
-                </span>
+                  <a className="mdl-list__item-secondary-action" onClick={()=>{this.changeStateSwitch();}}><i className={"material-icons " + this.state.classActive}>star</i></a>
                 </li>
             </div>
         );

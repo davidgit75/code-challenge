@@ -11,7 +11,7 @@ class App extends Component {
 
         this.state = {
             category: "lights",
-            searchedData: null
+            searchedData: ""
         };
     }
 
